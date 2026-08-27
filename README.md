@@ -9,6 +9,8 @@ git clone https://github.com/moelzanaty3/dotfiles.git ~/dotfiles
 cd ~/dotfiles && ./install.sh
 ```
 
+Setting this up on your own machine: [ONBOARDING.md](ONBOARDING.md) — fork, install, swap my identity out for yours, back it all out again.
+
 `install.sh` installs Homebrew and the Brewfile, installs oh-my-zsh with its plugins, symlinks every config below (backing up anything already there as `.bak.<timestamp>`), builds the bat theme cache, imports shell history into atuin, and installs the cmux agent hooks. `./install.sh --skip-brew` does the config half only.
 
 ---
@@ -30,8 +32,7 @@ cd ~/dotfiles && ./install.sh
 | `claude/CLAUDE.md` | `~/.claude/CLAUDE.md` | global instructions for Claude Code |
 | `claude/statusline.sh` | `~/.claude/statusline.sh` | context/rate-limit statusline |
 | `claude/hooks/` | `~/.claude/hooks/` | caveman-mode hooks |
-| `claude/skills/` | `~/.claude/skills/` | personal skills |
-| `agents/skills/` | `~/.agents/skills/` | shared skills store (paymob, frontend-design, perf, …) |
+| `agents/skills/` | `~/.agents/skills/`, and one symlink per skill in `~/.claude/skills/` | the only skill store — paymob, frontend-design, perf, wd, … |
 | `zed/settings.json` | `~/.config/zed/settings.json` | Zed editor |
 | `nvim/` | `~/.config/nvim/` | Neovim (lazy.nvim) |
 | `Brewfile` | — | 149 formulae, 12 casks, 52 VS Code extensions |
@@ -106,6 +107,17 @@ Refresh the package list after installing something new:
 ```sh
 brew bundle dump --force --file=~/dotfiles/Brewfile
 ```
+
+Or let it happen on its own. `scripts/dotfiles-drift.sh` collects everything that drifted — dirty working tree plus a fresh `brew bundle dump` — opens a PR against `main`, and squash-merges it. `install.sh` registers it as a launchd agent (`local.dotfiles-drift`) that runs Sundays at 10:00, logging to `~/Library/Logs/dotfiles-drift.log`.
+
+```sh
+./scripts/dotfiles-drift.sh --dry-run    # show the drift, change nothing
+./scripts/dotfiles-drift.sh --no-merge   # open the PR, leave it for review
+./scripts/dotfiles-drift.sh              # push chore/drift-<date>, PR, merge
+launchctl kickstart -k gui/$(id -u)/local.dotfiles-drift   # run the job now
+```
+
+It never checks out or stashes, so live configs are untouched: the commit is built from a throwaway index with `commit-tree`, and the local branch pointer moves with a mixed reset after the merge. It bails out if you're not on `main`, if `main` has diverged from origin, or if the drift contains anything that looks like a credential.
 
 ---
 

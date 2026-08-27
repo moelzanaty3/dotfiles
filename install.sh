@@ -71,12 +71,66 @@ link claude/settings.json             "$HOME/.claude/settings.json"
 link claude/CLAUDE.md                 "$HOME/.claude/CLAUDE.md"
 link claude/statusline.sh             "$HOME/.claude/statusline.sh"
 link claude/hooks                     "$HOME/.claude/hooks"
-link claude/skills                    "$HOME/.claude/skills"
 link agents/skills                    "$HOME/.agents/skills"
 link zed/settings.json                "$HOME/.config/zed/settings.json"
 link nvim                             "$HOME/.config/nvim"
 
+# Skills live once, in agents/skills. Claude Code reads ~/.claude/skills, so
+# every skill gets a symlink there pointing back at the one store.
+info "Linking skills into ~/.claude/skills"
+mkdir -p "$HOME/.claude/skills"
+for skill in "$DOTFILES"/agents/skills/*/; do
+  name="$(basename "$skill")"
+  dest="$HOME/.claude/skills/$name"
+  if [[ -L "$dest" ]]; then
+    rm "$dest"
+  elif [[ -e "$dest" ]]; then
+    mv "$dest" "$dest.bak.$STAMP"
+    warn "backed up $dest -> $dest.bak.$STAMP"
+  fi
+  ln -s "../../.agents/skills/$name" "$dest"
+  printf '    ~/.claude/skills/%s -> ~/.agents/skills/%s\n' "$name" "$name"
+done
+
 chmod +x "$HOME/.claude/statusline.sh" 2>/dev/null || true
+chmod +x "$DOTFILES/scripts/dotfiles-drift.sh" 2>/dev/null || true
+
+# ---------------------------------------------------------------- weekly drift PR
+DRIFT_LABEL="local.dotfiles-drift"
+DRIFT_PLIST="$HOME/Library/LaunchAgents/$DRIFT_LABEL.plist"
+info "Installing weekly drift job (Sundays 10:00)"
+mkdir -p "$HOME/Library/LaunchAgents" "$HOME/Library/Logs"
+cat > "$DRIFT_PLIST" <<PLIST
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>$DRIFT_LABEL</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>-lc</string>
+    <string>exec "$DOTFILES/scripts/dotfiles-drift.sh"</string>
+  </array>
+  <key>WorkingDirectory</key><string>$DOTFILES</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key><string>/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+  </dict>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Weekday</key><integer>0</integer>
+    <key>Hour</key><integer>10</integer>
+    <key>Minute</key><integer>0</integer>
+  </dict>
+  <key>RunAtLoad</key><false/>
+  <key>StandardOutPath</key><string>$HOME/Library/Logs/dotfiles-drift.log</string>
+  <key>StandardErrorPath</key><string>$HOME/Library/Logs/dotfiles-drift.log</string>
+</dict>
+</plist>
+PLIST
+launchctl bootout "gui/$(id -u)/$DRIFT_LABEL" 2>/dev/null || true
+launchctl bootstrap "gui/$(id -u)" "$DRIFT_PLIST" || warn "launchctl bootstrap failed for $DRIFT_LABEL"
 
 # ---------------------------------------------------------------- post-setup
 if command -v bat >/dev/null 2>&1; then
