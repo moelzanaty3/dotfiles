@@ -133,7 +133,7 @@ This repo is public, so machine- and work-specific material was stripped:
 - Employer git host and work `includeIf` block in `gitconfig` → commented template
 - Work GitHub username in `zshrc` → `$WORK_GH_USER`
 - Absolute `/Users/<name>` paths → `$HOME`
-- VS Code `settings.json`: SonarLint connected-mode server, `devagent.*` org and project, the `chat.tools.terminal.autoApprove` entry pinned to a work repo path, `remote.SSH.remotePlatform` → all dropped
+- VS Code `settings.json`: SonarLint connected-mode server, the internal dev-agent extension's org and project keys, a `chat.tools.terminal.autoApprove` entry pinned to a work repo path, `remote.SSH.remotePlatform` → all dropped
 
 Not included at all, because they hold live credentials: `~/.config/gh`, `~/.config/atuin`, `~/.config/github-copilot`, `~/.config/opencode`, `~/.claude.json`, VS Code's `User/mcp.json`, SSH keys.
 

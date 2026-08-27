@@ -117,7 +117,7 @@ If your fork is public, add the things that aren't credentials but still shouldn
 
 ```sh
 mkdir -p ~/.config/dotfiles-drift
-printf 'acme-corp\nacme\.internal\nDesktop/work/\n' > ~/.config/dotfiles-drift/blocklist
+printf 'acme-corp\nacme\.internal\nDocuments/employer/\n' > ~/.config/dotfiles-drift/blocklist
 ```
 
 That file is read by the script and deliberately not tracked. Any added line matching one of its patterns stops the run before anything is pushed.
