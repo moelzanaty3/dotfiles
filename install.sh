@@ -71,10 +71,26 @@ link claude/settings.json             "$HOME/.claude/settings.json"
 link claude/CLAUDE.md                 "$HOME/.claude/CLAUDE.md"
 link claude/statusline.sh             "$HOME/.claude/statusline.sh"
 link claude/hooks                     "$HOME/.claude/hooks"
-link claude/skills                    "$HOME/.claude/skills"
 link agents/skills                    "$HOME/.agents/skills"
 link zed/settings.json                "$HOME/.config/zed/settings.json"
 link nvim                             "$HOME/.config/nvim"
+
+# Skills live once, in agents/skills. Claude Code reads ~/.claude/skills, so
+# every skill gets a symlink there pointing back at the one store.
+info "Linking skills into ~/.claude/skills"
+mkdir -p "$HOME/.claude/skills"
+for skill in "$DOTFILES"/agents/skills/*/; do
+  name="$(basename "$skill")"
+  dest="$HOME/.claude/skills/$name"
+  if [[ -L "$dest" ]]; then
+    rm "$dest"
+  elif [[ -e "$dest" ]]; then
+    mv "$dest" "$dest.bak.$STAMP"
+    warn "backed up $dest -> $dest.bak.$STAMP"
+  fi
+  ln -s "../../.agents/skills/$name" "$dest"
+  printf '    ~/.claude/skills/%s -> ~/.agents/skills/%s\n' "$name" "$name"
+done
 
 chmod +x "$HOME/.claude/statusline.sh" 2>/dev/null || true
 chmod +x "$DOTFILES/scripts/dotfiles-drift.sh" 2>/dev/null || true

@@ -64,6 +64,7 @@ The repo is public, so anything personal was stripped to a placeholder. Fill the
 - **`zsh/zshrc`** — `$WORK_GH_USER` is referenced but not set. Export it in `~/.zprofile`, or delete the lines that use it.
 - **`zed/settings.json`** — `context7_api_key` is a placeholder. Replace it or drop the block.
 - **`claude/CLAUDE.md`** — my working rules, pnpm conventions and all. Read it and cut what doesn't apply to you; Claude Code follows this file globally.
+- **`agents/skills/`** — my Claude skills. They live here once; `install.sh` links the folder to `~/.agents/skills` and drops a symlink per skill into `~/.claude/skills`. Delete the ones you don't want before installing.
 - **`Brewfile`** — 149 formulae is my machine, not a recommendation. Trim before step 3 if you'd rather not have all of it.
 
 Edit these in the repo, not in `~`. They're the same file — the symlink means `~/.gitconfig` *is* `git/gitconfig`.
