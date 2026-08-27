@@ -31,6 +31,7 @@ cd ~/dotfiles && ./install.sh
 | `claude/statusline.sh` | `~/.claude/statusline.sh` | context/rate-limit statusline |
 | `claude/hooks/` | `~/.claude/hooks/` | caveman-mode hooks |
 | `claude/skills/` | `~/.claude/skills/` | personal skills |
+| `agents/skills/` | `~/.agents/skills/` | shared skills store (paymob, frontend-design, perf, …) |
 | `zed/settings.json` | `~/.config/zed/settings.json` | Zed editor |
 | `nvim/` | `~/.config/nvim/` | Neovim (lazy.nvim) |
 | `Brewfile` | — | 149 formulae, 12 casks, 52 VS Code extensions |

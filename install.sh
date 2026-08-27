@@ -72,6 +72,7 @@ link claude/CLAUDE.md                 "$HOME/.claude/CLAUDE.md"
 link claude/statusline.sh             "$HOME/.claude/statusline.sh"
 link claude/hooks                     "$HOME/.claude/hooks"
 link claude/skills                    "$HOME/.claude/skills"
+link agents/skills                    "$HOME/.agents/skills"
 link zed/settings.json                "$HOME/.config/zed/settings.json"
 link nvim                             "$HOME/.config/nvim"
 
