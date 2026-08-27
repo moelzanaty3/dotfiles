@@ -32,7 +32,7 @@ Setting this up on your own machine: [ONBOARDING.md](ONBOARDING.md) — fork, in
 | `claude/CLAUDE.md` | `~/.claude/CLAUDE.md` | global instructions for Claude Code |
 | `claude/statusline.sh` | `~/.claude/statusline.sh` | context/rate-limit statusline |
 | `claude/hooks/` | `~/.claude/hooks/` | caveman-mode hooks |
-| `agents/skills/` | `~/.agents/skills/`, and one symlink per skill in `~/.claude/skills/` | the only skill store — paymob, frontend-design, perf, wd, … |
+| `agents/skills/` | `~/.agents/skills/`, and one symlink per skill in `~/.claude/skills/` | the only skill store — frontend-design, perf, react/TS reviewers, wd, … |
 | `zed/settings.json` | `~/.config/zed/settings.json` | Zed editor |
 | `nvim/` | `~/.config/nvim/` | Neovim (lazy.nvim) |
 | `Brewfile` | — | 149 formulae, 12 casks, 52 VS Code extensions |
