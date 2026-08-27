@@ -1,0 +1,13 @@
+.DS_Store
+*.bak
+*.bak.*
+node_modules/
+
+# never commit credential-bearing state
+*.local
+.env
+.env.*
+**/auth.json
+**/credentials*
+**/*token*
+**/session*

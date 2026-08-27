@@ -1,0 +1,90 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "context_servers": {
+    "mcp-server-context7": {
+      "enabled": true,
+      "settings": {
+        "context7_api_key": "REPLACE_WITH_YOUR_CONTEXT7_KEY",
+      },
+    },
+  },
+  "agent": {
+    "default_model": {
+      "provider": "ollama",
+      "model": "qwen2.5:7b",
+    },
+    "model_parameters": [],
+  },
+  "icon_theme": "Catppuccin Latte",
+  "vim_mode": true,
+  "terminal": {
+    "env": {
+      "Q_NEW_SESSION": "\"1\"",
+      "FIG_NEW_SESSION": "\"1\"",
+    },
+    "font_size": 16.0,
+    "font_family": "Hack Nerd Font",
+  },
+  "tab_bar": {
+    "show_tab_bar_buttons": false,
+  },
+  "relative_line_numbers": "enabled",
+  "gutter": {
+    "line_numbers": true,
+  },
+  "minimap": {
+    "show": "never",
+  },
+  // "buffer_font_fallbacks": [
+  //   "Monaspace Neon",
+  //   "monospace",
+  //   "Dank Mono",
+  //   "Operator Mono",
+  //   "Fira Code",
+  //   "Menlo",
+  //   "Monaco",
+  //   "Courier New",
+  //   "monospace",
+  //   "MonoLisa",
+  //   "Dank Mono",
+  //   "Menlo",
+  // ],
+  "buffer_font_family": "Dank Mono",
+  "file_types": {
+    "dotenv": [".env*"],
+  },
+  "show_edit_predictions": true,
+  "tab_size": 2,
+  "edit_predictions": {
+    "disabled_globs": [
+      "**/credentials.json",
+      "**/credentials.*.json",
+      "**/secret.json",
+      "**/secrets.json",
+      "**/*.key",
+      "**/*.pem",
+      "**/*.pfx",
+      "**/*.p12",
+      "**/*.crt",
+      "**/*.cer",
+      "**/id_rsa",
+      "**/id_dsa",
+      "**/.ssh/id_*",
+    ],
+  },
+  "base_keymap": "VSCode",
+  "ui_font_size": 16,
+  "buffer_font_size": 16.0,
+  "theme": {
+    "mode": "system",
+    "light": "Gruvbox Light",
+    "dark": "Github Dark Tritanopia",
+  },
+}

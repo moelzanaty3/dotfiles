@@ -1,0 +1,305 @@
+{
+  "$schema": "https://raw.githubusercontent.com/manaflow-ai/cmux/main/web/data/cmux.schema.json",
+  "schemaVersion": 1,
+  "paneBorderColor": "#3D444D",
+  "activePaneBorderColor": "#539BF5",
+  "app": {
+    "appearance": "system",
+    "preferredEditor": "code",
+    "openSupportedFilesInCmux": true,
+    "openMarkdownInCmuxViewer": true,
+    "commandPaletteSearchesAllSurfaces": true,
+    "warnBeforeClosingTab": true,
+    "confirmQuit": "always"
+  },
+  "terminal": {
+    "copyOnSelect": true,
+    "showTextBoxOnNewTerminals": true,
+    "autoResumeAgentSessions": true,
+    "textBoxDefaultSubmitAction": "claude",
+    "textBoxSubmitActions": [
+      {
+        "id": "claude",
+        "title": "Claude Code",
+        "kind": "commandTemplate",
+        "commandTemplate": "claude -- {{prompt}}",
+        "assetName": "AgentIcons/Claude",
+        "systemImage": "sparkle",
+        "backgroundColorHex": "#F6D5C8"
+      },
+      {
+        "id": "claude-yolo",
+        "title": "Claude (skip permissions)",
+        "kind": "commandTemplate",
+        "commandTemplate": "claude --dangerously-skip-permissions -- {{prompt}}",
+        "assetName": "AgentIcons/Claude",
+        "systemImage": "bolt.fill",
+        "backgroundColorHex": "#E8A87C"
+      },
+      {
+        "id": "codex",
+        "title": "Codex",
+        "kind": "commandTemplate",
+        "commandTemplate": "codex -- {{prompt}}",
+        "assetName": "AgentIcons/Codex",
+        "systemImage": "sparkles",
+        "backgroundColorHex": "#8FDBFF"
+      },
+      {
+        "id": "cursor-agent",
+        "title": "Cursor Agent",
+        "kind": "commandTemplate",
+        "commandTemplate": "cursor-agent {{prompt}}",
+        "systemImage": "cursorarrow.rays",
+        "backgroundColorHex": "#C7C7CC"
+      },
+      {
+        "id": "opencode",
+        "title": "OpenCode",
+        "kind": "commandTemplate",
+        "commandTemplate": "opencode --prompt {{prompt}}",
+        "assetName": "AgentIcons/OpenCode",
+        "systemImage": "curlybraces",
+        "backgroundColorHex": "#B5E48C"
+      },
+      {
+        "id": "text-entry",
+        "title": "Text Entry",
+        "kind": "textEntry",
+        "systemImage": "text.cursor",
+        "backgroundColorHex": "#D0D0D5"
+      }
+    ],
+    "agentHibernation": {
+      "enabled": true,
+      "idleSeconds": 300,
+      "maxLiveTerminals": 8
+    }
+  },
+  "notifications": {
+    "dockBadge": true,
+    "showInMenuBar": true,
+    "unreadPaneRing": true,
+    "agentPermissionPrompt": true,
+    "agentTurnComplete": "whenIdle",
+    "agentIdleReminder": true,
+    "suppressOnlyFocusedSurface": true,
+    "sound": "Glass"
+  },
+  "sidebar": {
+    "showPullRequests": true,
+    "showPorts": true,
+    "showProgress": true,
+    "showAgentActivity": true,
+    "watchGitStatus": true,
+    "showBranchDirectory": true,
+    "branchLayout": "inline",
+    "notificationMessageLineLimit": 1,
+    "showLog": false,
+    "showCustomMetadata": false,
+    "wrapWorkspaceTitles": false
+  },
+  "automation": {
+    "claudeCodeIntegration": true,
+    "cursorIntegration": true,
+    "workspaceAutoNaming": true,
+    "autoNamingAgent": "auto",
+    "suppressSubagentNotifications": true
+  },
+  "sidebarAppearance": {
+    "matchTerminalBackground": true,
+    "tintColor": "#0A0C10",
+    "darkModeTintColor": "#0A0C10",
+    "lightModeTintColor": "#FFFFFF",
+    "tintOpacity": 0.12
+  },
+  "workspaceColors": {
+    "indicatorStyle": "leftRail",
+    "selectionColor": "#539BF5",
+    "notificationBadgeColor": "#FF6A69"
+  },
+  "diffViewer": {
+    "defaultLayout": "split"
+  },
+  "fileEditor": {
+    "wordWrap": true
+  },
+  "actions": {
+    "dev-trio": {
+      "type": "workspace",
+      "title": "Dev trio — shell + Claude + runner",
+      "keywords": [
+        "dev",
+        "trio",
+        "layout"
+      ],
+      "newWorkspaceMenu": true,
+      "restart": "new",
+      "workspace": {
+        "name": "Dev",
+        "cwd": ".",
+        "color": "#7AA2F7",
+        "layout": {
+          "direction": "horizontal",
+          "split": 0.5,
+          "children": [
+            {
+              "pane": {
+                "surfaces": [
+                  {
+                    "type": "terminal",
+                    "name": "Shell",
+                    "focus": true
+                  }
+                ]
+              }
+            },
+            {
+              "direction": "vertical",
+              "split": 0.6,
+              "children": [
+                {
+                  "pane": {
+                    "surfaces": [
+                      {
+                        "type": "terminal",
+                        "name": "Claude",
+                        "command": "claude"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "pane": {
+                    "surfaces": [
+                      {
+                        "type": "terminal",
+                        "name": "Runner"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "agent-pair": {
+      "type": "workspace",
+      "title": "Agent pair — Claude + Codex",
+      "keywords": [
+        "agents",
+        "pair",
+        "compare"
+      ],
+      "newWorkspaceMenu": true,
+      "restart": "new",
+      "workspace": {
+        "name": "Agents",
+        "cwd": ".",
+        "color": "#BB9AF7",
+        "layout": {
+          "direction": "horizontal",
+          "split": 0.5,
+          "children": [
+            {
+              "pane": {
+                "surfaces": [
+                  {
+                    "type": "terminal",
+                    "name": "Claude",
+                    "command": "claude",
+                    "focus": true
+                  }
+                ]
+              }
+            },
+            {
+              "pane": {
+                "surfaces": [
+                  {
+                    "type": "terminal",
+                    "name": "Codex",
+                    "command": "codex"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "review": {
+      "type": "workspace",
+      "title": "Review — lazygit + diff shell",
+      "keywords": [
+        "review",
+        "git",
+        "diff"
+      ],
+      "newWorkspaceMenu": true,
+      "restart": "new",
+      "workspace": {
+        "name": "Review",
+        "cwd": ".",
+        "color": "#9ECE6A",
+        "setup": "git fetch --all --prune",
+        "layout": {
+          "direction": "horizontal",
+          "split": 0.6,
+          "children": [
+            {
+              "pane": {
+                "surfaces": [
+                  {
+                    "type": "terminal",
+                    "name": "Lazygit",
+                    "command": "lazygit",
+                    "focus": true
+                  }
+                ]
+              }
+            },
+            {
+              "pane": {
+                "surfaces": [
+                  {
+                    "type": "terminal",
+                    "name": "Shell"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "ui": {
+    "newWorkspace": {
+      "action": "dev-trio",
+      "contextMenu": [
+        {
+          "action": "dev-trio",
+          "title": "Dev trio"
+        },
+        {
+          "action": "agent-pair",
+          "title": "Agent pair"
+        },
+        {
+          "action": "review",
+          "title": "Review"
+        },
+        {
+          "type": "separator"
+        },
+        {
+          "action": "cmux.newTerminal",
+          "title": "Blank Terminal"
+        }
+      ]
+    }
+  }
+}

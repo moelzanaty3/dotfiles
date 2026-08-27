@@ -1,0 +1,43 @@
+# Default settings for personal projects
+[user]
+name = moelzanaty3
+email = mohammedelzanaty129@gmail.com
+
+[core]
+autocrlf = input
+	pager = delta
+
+[url "https://"]
+insteadOf = git://
+
+[credential]
+helper = cache --timeout=86400
+
+[init]
+defaultbranch = main
+
+# Work directory specific settings (fill in per machine)
+# [includeIf "gitdir:~/work/"]
+#   path = ~/.gitconfig-work
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	line-numbers = true
+	side-by-side = false
+	hyperlinks = true
+	syntax-theme = tokyonight_night
+	file-style = bold yellow
+	hunk-header-decoration-style = "#7aa2f7 box"
+	plus-style = "syntax #1f2d1f"
+	minus-style = "normal #2d1f26"
+[merge]
+	conflictstyle = zdiff3
+[diff]
+	colorMoved = default

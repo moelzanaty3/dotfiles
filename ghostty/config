@@ -1,0 +1,65 @@
+# cmux reads this for terminal rendering (theme, font, cursor, keybinds).
+# Reload: cmd+shift+, in cmux, or `cmux reload-config`
+# Full reference: https://ghostty.org/docs/config/reference
+
+# --- theme: high contrast, auto light/dark ---
+theme = dark:GitHub Dark High Contrast,light:GitHub Light High Contrast
+window-theme = auto
+window-colorspace = display-p3
+
+# --- readability ---
+# no transparency: every point of contrast goes to the text
+background-opacity = 1
+# floor on text/background contrast ratio, applied per cell
+minimum-contrast = 4
+bold-is-bright = true
+# unfocused panes stay legible instead of dimming out
+unfocused-split-opacity = 0.92
+
+# --- font ---
+font-family = JetBrainsMono Nerd Font
+font-size = 16
+font-thicken = true
+font-thicken-strength = 64
+font-feature = calt
+font-feature = liga
+font-feature = ss01
+adjust-cell-height = 20%
+
+# --- window ---
+macos-titlebar-style = transparent
+window-padding-x = 14
+window-padding-y = 10
+window-padding-balance = true
+window-padding-color = extend
+window-inherit-working-directory = true
+window-inherit-font-size = true
+split-inherit-working-directory = true
+macos-option-as-alt = true
+macos-non-native-fullscreen = true
+
+# --- cursor ---
+cursor-style = block
+cursor-style-blink = false
+cursor-opacity = 1
+cursor-click-to-move = true
+mouse-hide-while-typing = true
+
+# --- scrollback & clipboard ---
+scrollback-limit = 100000
+copy-on-select = clipboard
+clipboard-trim-trailing-spaces = true
+clipboard-paste-protection = true
+scroll-to-bottom = keystroke, no-output
+
+# --- shell ---
+shell-integration = detect
+shell-integration-features = cursor,sudo,title
+confirm-close-surface = false
+
+# --- keybinds (word/line motion in agent prompts) ---
+keybind = alt+left=esc:b
+keybind = alt+right=esc:f
+keybind = alt+backspace=text:\x17
+keybind = cmd+left=text:\x01
+keybind = cmd+right=text:\x05

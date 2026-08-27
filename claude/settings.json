@@ -1,0 +1,135 @@
+{
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "includeCoAuthoredBy": false,
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(wc:*)",
+      "Bash(rg:*)",
+      "Bash(grep:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git *)",
+      "Bash(git reset:*)",
+      "Bash(gh pr *)",
+      "Bash(npm test:*)",
+      "Bash(npm run test:*)",
+      "Bash(npm run lint:*)",
+      "Bash(npm run typecheck:*)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(pnpm typecheck:*)",
+      "mcp__claude_ai_Trello__get_lists",
+      "mcp__claude_ai_Trello__get_cards",
+      "mcp__claude_ai_Trello__get_card",
+      "mcp__claude_ai_Trello__create_card",
+      "mcp__claude_ai_Trello__update_card",
+      "mcp__claude_ai_Trello__add_attachment",
+      "mcp__claude_ai_Slack__slack_send_message",
+      "mcp__plugin_playwright_playwright__browser_navigate",
+      "mcp__plugin_playwright_playwright__browser_take_screenshot",
+      "mcp__plugin_playwright_playwright__browser_click",
+      "mcp__plugin_playwright_playwright__browser_fill",
+      "mcp__plugin_playwright_playwright__browser_select_option",
+      "mcp__plugin_playwright_playwright__browser_get_text",
+      "mcp__plugin_playwright_playwright__browser_get_attribute",
+      "Bash(pnpm compile *)",
+      "Bash(pnpm lint:format)",
+      "Bash(pnpm ios *)",
+      "Bash(pod update *)",
+      "Bash(pod install *)"
+    ],
+    "deny": [
+      "Bash(rmdir:*)",
+      "Bash(mv:*)",
+      "Bash(chmod:*)",
+      "Bash(chown:*)",
+      "Bash(sudo:*)",
+      "Bash(git clean:*)",
+      "Bash(npm publish:*)",
+      "Bash(pnpm publish:*)",
+      "Bash(gh pr merge:*)",
+      "Bash(gh repo delete:*)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$HOME/.claude/hooks/caveman-activate.js\"",
+            "timeout": 5,
+            "statusMessage": "Loading caveman mode..."
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$HOME/.claude/hooks/caveman-mode-tracker.js\"",
+            "timeout": 5,
+            "statusMessage": "Tracking caveman mode..."
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "input=$(cat); model=$(echo \"$input\" | jq -r '.model.display_name // \"\"'); pct=$(echo \"$input\" | jq -r '.context_window.used_percentage // 0' | awk '{printf \"%.0f\", $1}'); tokens=$(echo \"$input\" | jq -r '.context_window.total_input_tokens // 0'); five_h=$(echo \"$input\" | jq -r '.rate_limits.five_hour.used_percentage // empty'); tok_fmt=$(awk \"BEGIN{t=$tokens; if(t>=1000000) printf \\\"%.1fM\\\", t/1000000; else if(t>=1000) printf \\\"%.1fk\\\", t/1000; else printf \\\"%d\\\", t}\"); total=$(awk \"BEGIN{u=$tokens; p=$pct; if(p>0) printf \\\"%.0f\\\", u*100/p; else print 0}\"); prog=$(awk \"BEGIN{u=$tokens; t=$total; if(t>0) printf \\\"%.0f\\\", (u/t)*100; else print 0}\"); filled=$(( prog * 8 / 100 )); empty=$(( 8 - filled )); bar=$(printf '%0.s▓' $(seq 1 $filled 2>/dev/null) 2>/dev/null; printf '%0.s░' $(seq 1 $empty 2>/dev/null) 2>/dev/null); warn=\"\"; [ \"$pct\" -ge 75 ] && warn=\" ⚠\"; out=\"⚡ $model | $bar ${prog}% (${tok_fmt}) | $(printf '%.0f' \"$five_h\")%\"; echo \"$out\""
+  },
+  "enabledPlugins": {
+    "frontend-design@claude-plugins-official": true,
+    "context7@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true,
+    "security-guidance@claude-plugins-official": true,
+    "claude-code-setup@claude-plugins-official": true,
+    "caveman@caveman": true
+  },
+  "extraKnownMarketplaces": {
+    "caveman": {
+      "source": {
+        "source": "github",
+        "repo": "JuliusBrussee/caveman"
+      }
+    },
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
+      }
+    }
+  },
+  "tui": "fullscreen",
+  "voice": {
+    "enabled": true,
+    "mode": "hold"
+  },
+  "skipWorkflowUsageWarning": true,
+  "agentPushNotifEnabled": true,
+  "skipAutoPermissionPrompt": true,
+  "autoMode": {
+    "soft_deny": [
+      "$defaults"
+    ]
+  },
+  "voiceEnabled": true
+}

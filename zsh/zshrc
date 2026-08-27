@@ -1,0 +1,396 @@
+
+# Kiro CLI pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"
+
+
+
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+
+# Path to your Oh My Zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time Oh My Zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+# ZSH_THEME="tokyo-night-mono"
+
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in $ZSH/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+
+# Uncomment the following line to change how often to auto-update (in days).
+# zstyle ':omz:update' frequency 13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='nvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch $(uname -m)"
+
+# Set personal aliases, overriding those provided by Oh My Zsh libs,
+# plugins, and themes. Aliases can be placed here, though Oh My Zsh
+# users are encouraged to define aliases within a top-level file in
+# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
+# - $ZSH_CUSTOM/aliases.zsh
+# - $ZSH_CUSTOM/macos.zsh
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# # -------------------------------------------------------------------
+# Environment variables
+# -------------------------------------------------------------------
+export PATH="/opt/homebrew/bin:$PATH"
+export curl="/opt/homebrew/opt/curl/bin:$PATH"
+export psql="/opt/homebrew/opt/postgresql@15/bin:$PATH"
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+export java="/opt/homebrew/opt/openjdk/bin:$PATH"
+export PATH="$PATH:/usr/local/mongodb/bin"
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$HOME/go/bin
+# export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
+# export PATH="/Applications/Privileges.app/Contents/Resources"
+
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+# plugins=(git zsh-autosuggestions zsh-syntax-highlighting fast-syntax-highlighting zsh-autocomplete)
+# plugins=(git zsh-syntax-highlighting)
+plugins=(git zsh-autosuggestions fast-syntax-highlighting)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# -------------------------------------------------------------------
+# Mac helper aliases
+# -------------------------------------------------------------------
+
+# Show/hide hidden files (starting with a `.`)
+alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
+alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+
+# Save me from myself
+# alias rm="trash"
+
+# Delete auto-generated `.DS_Store` files
+alias deleteDSFiles="find . -name '.DS_Store' -type f -delete"
+
+# Flush the DNS cache (helpful if you’re playing with local DNS)
+alias flushdns="sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder"
+
+# Code editor aliases
+# alias c="code"
+
+# list all files colorized in tree format
+alias t="tree -L"
+
+# show git emoji
+alias em="gitmoji -s"
+
+alias v="nvim"
+alias c="clear"
+# alias vim="nvim"
+
+# alias ls='exa --grid --color auto --icons --sort=type'
+# alias ll='exa --long --color always --icons --sort=type'
+# alias la='exa --grid --all --color auto --icons --sort=type'
+# alias lla='exa --long --all --color auto --icons --sort=type'
+
+# -------------------------------------------------------------------
+# Git stuff
+# -------------------------------------------------------------------
+
+# Us to make git more powerful (https://hub.github.com/)
+# alias git="hub"
+
+# Shortcut to checkout master and pull from upstream
+alias gu="git checkout master && git pull upstream master"
+
+alias n='npm'
+alias ni='npm install'
+alias nid='npm install --save-dev'
+alias nr='npm run'
+alias nt='npm run test'
+alias nd='npm run dev'
+alias ns='npm run start'
+
+alias y='yarn'
+alias ya='yarn add'
+alias yad='yarn add -D'
+alias s='yarn start'
+alias yd='yarn dev'
+
+alias pn='pnpm'
+alias pd='pnpm dev'
+# alias ps='pnpm start'
+
+alias kp='kill-port'
+
+alias l='npx lerna'
+alias nx='npx nx'
+
+alias ga='git add'
+alias gp4='git push'
+alias gp4n='git push --set-upstream origin $(git branch --show-current)'
+alias gaa='git add .'
+alias gaaa='git add --all'
+alias gau='git add --update'
+alias gb='git branch'
+alias gbd='git branch --delete '
+alias gc='git commit'
+alias gcz="cz commit"
+alias gcm='git commit --message'
+alias gcf='git commit --fixup'
+alias gco='git checkout'
+alias gcob='git checkout -b'
+alias gcom='git checkout master'
+alias gcos='git checkout staging'
+alias gcod='git checkout develop'
+alias gd='git diff'
+alias gda='git diff HEAD'
+alias gi='git init'
+alias glg='git log --graph --oneline --decorate --all'
+alias gld='git log --pretty=format:"%h %ad %s" --date=short --all'
+alias gm='git merge --no-ff'
+alias gma='git merge --abort'
+alias gmc='git merge --continue'
+alias gp='git pull'
+alias gpr='git pull --rebase'
+alias gr='git rebase'
+alias gs='git status'
+alias gss='git status --short'
+alias gst='git stash'
+alias gsta='git stash apply'
+alias gstd='git stash drop'
+alias gstl='git stash list'
+alias gstp='git stash pop'
+alias gsts='git stash save'
+alias gsu='git submodule update --init --recursive'
+alias gup='git pull --rebase && git submodule update --init --recursive'
+alias gr='git reset --hard'
+
+alias wp='nodemon --exec python3'
+alias gh-work="gh auth switch --user "$WORK_GH_USER""
+alias gh-personal="gh auth switch --user personal-user"
+# test -e "${ZDOTDIR}/.iterm2_shell_integration.zsh" && source "${ZDOTDIR}/.iterm2_shell_integration.zsh"
+
+# -------------------------------------------------------------------
+# Functions Utilities
+# -------------------------------------------------------------------
+
+# Shortcut function for creating custom git.io links.
+# See https://blog.github.com/2011-11-10-git-io-github-url-shortener/
+gitlink() {
+    # The first argument is the URL to shorten
+    VALUES="-F \"url=$1\""
+
+    # If a custom short code was requested, set the form value.
+    if [ -n "$2" ]; then VALUES="$VALUES -F \"code=$2\""; fi
+
+    # Send the request to GitHub and grab the Location header.
+    RESPONSE=$(eval "curl -i https://git.io $VALUES 2>&1" | grep Location)
+
+    # Remove the header name and echo only the generated short link.
+    echo "${RESPONSE//Location: /}"
+}
+# -------------------------------------------------------------------
+# GPG stuff
+# -------------------------------------------------------------------
+
+# This is so we can do nerdy GPG stuff and pretend to be hackers
+# export GPG_TTY=$(tty)
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
+
+eval "$(starship init zsh)"
+eval "$(jump shell)"
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+
+export PATH=$PATH:$HOME/.local/opt/go/bin
+
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=($HOME/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
+
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
+
+
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+# opencode
+export PATH=$HOME/.opencode/bin:$PATH
+
+
+# Kiro CLI post block. Keep at the bottom of this file.
+[[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
+
+# >>> claude-auto-retry >>>
+# Drop any pre-existing `claude` alias (Claude Code's own installer adds one)
+# before defining the wrapper function. Without this, the shell expands the
+# alias while parsing `claude() {`, producing "syntax error near unexpected
+# token '('" when the rc file is sourced.
+unalias claude 2>/dev/null || true
+claude() {
+  if [ "${CLAUDE_AUTO_RETRY_ACTIVE}" = "1" ]; then
+    command claude "$@"
+    return $?
+  fi
+  export CLAUDE_AUTO_RETRY_ACTIVE=1
+  local _car_old_int_trap _car_old_term_trap
+  _car_old_int_trap=$(trap -p INT)
+  _car_old_term_trap=$(trap -p TERM)
+  trap 'unset CLAUDE_AUTO_RETRY_ACTIVE' INT TERM
+  node "$HOME/.volta/tools/image/packages/claude-auto-retry/lib/node_modules/claude-auto-retry/src/launcher.js" "$@"
+  local _car_exit=$?
+  unset CLAUDE_AUTO_RETRY_ACTIVE
+  # Restore previous traps instead of clobbering them
+  eval "${_car_old_int_trap:-trap - INT}"
+  eval "${_car_old_term_trap:-trap - TERM}"
+  return $_car_exit
+}
+# <<< claude-auto-retry <<<
+
+# plain claude, bypass auto-retry tmux wrapper (day use)
+alias cc='command claude'
+
+
+# >>> modern cli + cmux helpers >>>
+# eza (ls replacement, Nerd Font icons)
+alias ls='eza --icons --group-directories-first'
+alias ll='eza -lh --icons --group-directories-first --git'
+alias la='eza -lah --icons --group-directories-first --git'
+alias lt='eza --tree --level=2 --icons --group-directories-first'
+
+# zsh-autosuggestions colour tuned for Tokyo Night (default fg=8 is too dim)
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#565f89'
+
+# bat
+alias batp='bat --paging=always'
+export BAT_THEME="tokyonight_night"
+
+# zoxide (smarter cd, keeps builtin cd intact)
+eval "$(zoxide init zsh)"
+
+# fzf — keybindings need a real tty; `zsh -i -c` has none and warns
+[[ -t 1 ]] && source <(fzf --zsh)
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
+export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --line-range :200 {}'"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --level=2 --icons --color=always {}'"
+export FZF_DEFAULT_OPTS="
+  --height 60% --layout=reverse --border=rounded --info=inline
+  --color=bg+:#292e42,bg:#1a1b26,spinner:#bb9af7,hl:#7aa2f7
+  --color=fg:#c0caf5,header:#7aa2f7,info:#7dcfff,pointer:#bb9af7
+  --color=marker:#9ece6a,fg+:#c0caf5,prompt:#7dcfff,hl+:#7aa2f7"
+
+# atuin — searchable shell history (ctrl-r); up-arrow left native
+[[ -t 1 ]] && eval "$(atuin init zsh --disable-up-arrow)"
+
+# cmux CLI
+alias cm-diff='cmux diff'
+alias cm-staged='cmux diff --staged'
+alias cm-branch='cmux diff --branch'
+alias cm-turn='cmux diff --last-turn'
+alias cm-open='cmux open'
+alias cm-feed='cmux feed tui'
+alias cm-reload='cmux reload-config'
+# <<< modern cli + cmux helpers <<<
