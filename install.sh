@@ -73,6 +73,7 @@ link claude/statusline.sh             "$HOME/.claude/statusline.sh"
 link claude/hooks                     "$HOME/.claude/hooks"
 link agents/skills                    "$HOME/.agents/skills"
 link zed/settings.json                "$HOME/.config/zed/settings.json"
+link vscode/settings.json             "$HOME/Library/Application Support/Code/User/settings.json"
 link nvim                             "$HOME/.config/nvim"
 
 # Skills live once, in agents/skills. Claude Code reads ~/.claude/skills, so

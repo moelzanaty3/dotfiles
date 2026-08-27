@@ -35,7 +35,9 @@ command -v gh >/dev/null 2>&1 || die "gh not installed"
 
 # gh's active account is global state and may be a work login by the time this
 # fires. Pin it to whoever owns origin, for git's credential helper too.
-OWNER="$(git remote get-url origin | sed -E 's#.*[/:]([^/]+)/[^/]+?(\.git)?$#\1#')"
+ORIGIN_URL="$(git remote get-url origin)"
+OWNER="$(basename "$(dirname "${ORIGIN_URL%.git}")")"
+OWNER="${OWNER##*:}"
 if token="$(gh auth token --hostname github.com --user "$OWNER" 2>/dev/null)"; then
   export GH_TOKEN="$token"
   unset token
@@ -92,11 +94,25 @@ fi
 DIFFSTAT="$(git diff --stat HEAD "$TREE")"
 
 # ---------------------------------------------------------------- secret guard
-SECRETS='(sk-[A-Za-z0-9_-]{20,}|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|AKIA[0-9A-Z]{16}|AIza[0-9A-Za-z_-]{30,}|xox[baprse]-[A-Za-z0-9-]{10,}|-----BEGIN [A-Z ]*PRIVATE KEY-----)'
-if git diff --no-color HEAD "$TREE" | grep -nE "^\+.*$SECRETS" >"$RUNDIR/hits"; then
+SECRETS='(sk-[A-Za-z0-9_-]{20,}|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|AKIA[0-9A-Z]{16}|AIza[0-9A-Za-z_-]{30,}|xox[baprse]-[A-Za-z0-9-]{10,}|squ[a-z]?_[0-9a-f]{20,}|-----BEGIN [A-Z ]*PRIVATE KEY-----)'
+git diff --no-color HEAD "$TREE" > "$RUNDIR/diff"
+
+if grep -nE "^\+.*$SECRETS" "$RUNDIR/diff" >"$RUNDIR/hits"; then
   warn "Possible credentials in the drift -- refusing to push:"
   cat "$RUNDIR/hits" >&2
   die "scrub the value or add the file to .gitignore, then rerun"
+fi
+
+# This repo is public and the PR self-merges, so employer hostnames, org slugs,
+# and work paths get their own gate. The list stays off the machine's repo on
+# purpose -- one extended regex per line, blank lines and # comments ignored.
+BLOCKLIST="${DRIFT_BLOCKLIST:-$HOME/.config/dotfiles-drift/blocklist}"
+if [[ -s "$BLOCKLIST" ]]; then
+  if grep -nEif <(grep -vE '^\s*(#|$)' "$BLOCKLIST") <(grep '^+' "$RUNDIR/diff") >"$RUNDIR/blocked"; then
+    warn "Work material in the drift -- refusing to push:"
+    cat "$RUNDIR/blocked" >&2
+    die "scrub it, or exclude the file, then rerun"
+  fi
 fi
 
 if [[ $DRY_RUN -eq 1 ]]; then

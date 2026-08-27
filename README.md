@@ -34,6 +34,7 @@ Setting this up on your own machine: [ONBOARDING.md](ONBOARDING.md) — fork, in
 | `claude/hooks/` | `~/.claude/hooks/` | caveman-mode hooks |
 | `agents/skills/` | `~/.agents/skills/`, and one symlink per skill in `~/.claude/skills/` | the only skill store — frontend-design, perf, react/TS reviewers, wd, … |
 | `zed/settings.json` | `~/.config/zed/settings.json` | Zed editor |
+| `vscode/settings.json` | `~/Library/Application Support/Code/User/settings.json` | VS Code — extensions come from the Brewfile's `vscode` lines |
 | `nvim/` | `~/.config/nvim/` | Neovim (lazy.nvim) |
 | `Brewfile` | — | 149 formulae, 12 casks, 52 VS Code extensions |
 
@@ -119,6 +120,8 @@ launchctl kickstart -k gui/$(id -u)/local.dotfiles-drift   # run the job now
 
 It never checks out or stashes, so live configs are untouched: the commit is built from a throwaway index with `commit-tree`, and the local branch pointer moves with a mixed reset after the merge. It bails out if you're not on `main`, if `main` has diverged from origin, or if the drift contains anything that looks like a credential.
 
+Since this repo is public and the PR merges itself, there's a second gate for material that isn't a credential but still shouldn't be here — employer hostnames, org slugs, work paths. Put one extended regex per line in `~/.config/dotfiles-drift/blocklist` (untracked, override with `$DRIFT_BLOCKLIST`) and any added line matching one of them stops the run.
+
 ---
 
 ## What was removed before publishing
@@ -130,8 +133,9 @@ This repo is public, so machine- and work-specific material was stripped:
 - Employer git host and work `includeIf` block in `gitconfig` → commented template
 - Work GitHub username in `zshrc` → `$WORK_GH_USER`
 - Absolute `/Users/<name>` paths → `$HOME`
+- VS Code `settings.json`: SonarLint connected-mode server, `devagent.*` org and project, the `chat.tools.terminal.autoApprove` entry pinned to a work repo path, `remote.SSH.remotePlatform` → all dropped
 
-Not included at all, because they hold live credentials: `~/.config/gh`, `~/.config/atuin`, `~/.config/github-copilot`, `~/.config/opencode`, `~/.claude.json`, SSH keys.
+Not included at all, because they hold live credentials: `~/.config/gh`, `~/.config/atuin`, `~/.config/github-copilot`, `~/.config/opencode`, `~/.claude.json`, VS Code's `User/mcp.json`, SSH keys.
 
 Re-scan before any future push:
 

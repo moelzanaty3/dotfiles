@@ -64,6 +64,7 @@ The repo is public, so anything personal was stripped to a placeholder. Fill the
 - **`zsh/zshrc`** — `$WORK_GH_USER` is referenced but not set. Export it in `~/.zprofile`, or delete the lines that use it.
 - **`zed/settings.json`** — `context7_api_key` is a placeholder. Replace it or drop the block.
 - **`claude/CLAUDE.md`** — my working rules, pnpm conventions and all. Read it and cut what doesn't apply to you; Claude Code follows this file globally.
+- **`vscode/settings.json`** — my editor, minus anything work-specific. It replaces your `~/Library/Application Support/Code/User/settings.json` (the old one is kept as a `.bak`), so merge yours back in from that file. Extensions are separate: they ride in the Brewfile as `vscode "..."` lines.
 - **`agents/skills/`** — my Claude skills. They live here once; `install.sh` links the folder to `~/.agents/skills` and drops a symlink per skill into `~/.claude/skills`. Delete the ones you don't want before installing.
 - **`Brewfile`** — 149 formulae is my machine, not a recommendation. Trim before step 3 if you'd rather not have all of it.
 
@@ -111,6 +112,15 @@ launchctl kickstart -k gui/$(id -u)/local.dotfiles-drift   # run it now
 ```
 
 It refuses to run when you're not on `main`, when `main` has diverged from origin, or when the drift contains something shaped like a credential. It never checks out or stashes, so a run can't cost you local changes.
+
+If your fork is public, add the things that aren't credentials but still shouldn't leave your machine — your employer's hostnames, org slugs, the path your work repos live under — one extended regex per line:
+
+```sh
+mkdir -p ~/.config/dotfiles-drift
+printf 'acme-corp\nacme\.internal\nDesktop/work/\n' > ~/.config/dotfiles-drift/blocklist
+```
+
+That file is read by the script and deliberately not tracked. Any added line matching one of its patterns stops the run before anything is pushed.
 
 Prefer reviewing every sync? Drop `--no-merge` into the plist's `ProgramArguments`, or unload the job entirely:
 
