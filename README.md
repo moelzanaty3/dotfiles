@@ -107,6 +107,16 @@ Refresh the package list after installing something new:
 brew bundle dump --force --file=~/dotfiles/Brewfile
 ```
 
+Or let it happen on its own. `scripts/dotfiles-drift.sh` collects everything that drifted — dirty working tree plus a fresh `brew bundle dump` — and opens a PR against `main`. `install.sh` registers it as a launchd agent (`com.moelzanaty3.dotfiles-drift`) that runs Sundays at 10:00, logging to `~/Library/Logs/dotfiles-drift.log`.
+
+```sh
+./scripts/dotfiles-drift.sh --dry-run   # show the drift, change nothing
+./scripts/dotfiles-drift.sh             # push chore/drift-<date> and open the PR
+launchctl kickstart -k gui/$(id -u)/com.moelzanaty3.dotfiles-drift   # run the job now
+```
+
+It never checks out or stashes, so live configs are untouched: the commit is built from a throwaway index with `commit-tree`. It bails out if you're not on `main`, if `main` is behind origin, or if the drift contains anything that looks like a credential.
+
 ---
 
 ## What was removed before publishing

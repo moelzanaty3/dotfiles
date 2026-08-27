@@ -77,6 +77,44 @@ link zed/settings.json                "$HOME/.config/zed/settings.json"
 link nvim                             "$HOME/.config/nvim"
 
 chmod +x "$HOME/.claude/statusline.sh" 2>/dev/null || true
+chmod +x "$DOTFILES/scripts/dotfiles-drift.sh" 2>/dev/null || true
+
+# ---------------------------------------------------------------- weekly drift PR
+DRIFT_LABEL="com.moelzanaty3.dotfiles-drift"
+DRIFT_PLIST="$HOME/Library/LaunchAgents/$DRIFT_LABEL.plist"
+info "Installing weekly drift job (Sundays 10:00)"
+mkdir -p "$HOME/Library/LaunchAgents" "$HOME/Library/Logs"
+cat > "$DRIFT_PLIST" <<PLIST
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>$DRIFT_LABEL</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>-lc</string>
+    <string>exec "$DOTFILES/scripts/dotfiles-drift.sh"</string>
+  </array>
+  <key>WorkingDirectory</key><string>$DOTFILES</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key><string>/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+  </dict>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Weekday</key><integer>0</integer>
+    <key>Hour</key><integer>10</integer>
+    <key>Minute</key><integer>0</integer>
+  </dict>
+  <key>RunAtLoad</key><false/>
+  <key>StandardOutPath</key><string>$HOME/Library/Logs/dotfiles-drift.log</string>
+  <key>StandardErrorPath</key><string>$HOME/Library/Logs/dotfiles-drift.log</string>
+</dict>
+</plist>
+PLIST
+launchctl bootout "gui/$(id -u)/$DRIFT_LABEL" 2>/dev/null || true
+launchctl bootstrap "gui/$(id -u)" "$DRIFT_PLIST" || warn "launchctl bootstrap failed for $DRIFT_LABEL"
 
 # ---------------------------------------------------------------- post-setup
 if command -v bat >/dev/null 2>&1; then
