@@ -254,6 +254,8 @@ brew "openjdk@17"
 brew "pngquant"
 # PDF rendering library (based on the xpdf-3.0 code base)
 brew "poppler"
+# Convert bitmaps to vector graphics
+brew "potrace"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.12"
 # Persistent key-value database, with built-in net interface
@@ -373,4 +375,3 @@ vscode "wix.vscode-import-cost"
 vscode "yoavbls.pretty-ts-errors"
 vscode "zanaty.github-dark-tritanopia"
 vscode "zhuangtongfa.material-theme"
-npm "corepack"
